@@ -142,9 +142,9 @@ dbg_print(int format, FILE *target, void *data, int len, int sep)
 	}
 
 #ifdef EOL_HANDLING
-	if (sep)
+       if (sep)
 #endif /* EOL_HANDLING */
-	if (!columnar && (sep != -1))
+       if (!columnar && (sep != -1))
 		fprintf(target, "%c", SEPARATOR);
 	
 	return(0);
@@ -191,9 +191,9 @@ static FILE *fp = NULL;
    PR_INT(fp, c->nation_code);
    PR_STR(fp, c->phone, PHONE_LEN);
    PR_MONEY(fp, c->acctbal);
-   PR_STR(fp, c->mktsegment, C_MSEG_LEN);
-   PR_VSTR_LAST(fp, c->comment, 
-       (columnar)?(long)(ceil(C_CMNT_LEN * V_STR_HGH)):c->clen);
+   PR_STR_LAST(fp, c->mktsegment, C_MSEG_LEN);
+   /*PR_VSTR_LAST(fp, c->comment, 
+       (columnar)?(long)(ceil(C_CMNT_LEN * V_STR_HGH)):c->clen);*/
    PR_END(fp);
 
    return(0);
@@ -227,9 +227,9 @@ pr_order(order_t *o, int mode)
     PR_STR(fp_o, o->odate, DATE_LEN);
     PR_STR(fp_o, o->opriority, O_OPRIO_LEN);
     PR_STR(fp_o, o->clerk, O_CLRK_LEN);
-    PR_INT(fp_o, o->spriority);
-    PR_VSTR_LAST(fp_o, o->comment, 
-       (columnar)?(long)(ceil(O_CMNT_LEN * V_STR_HGH)):o->clen);
+    PR_INT_LAST(fp_o, o->spriority);
+    /*PR_VSTR_LAST(fp_o, o->comment, 
+       (columnar)?(long)(ceil(O_CMNT_LEN * V_STR_HGH)):o->clen);*/
     PR_END(fp_o);
 
     return(0);
@@ -277,7 +277,7 @@ pr_line(order_t *o, int mode)
 	PR_INT(fp_l, o->lineorders[i].supp_cost);
 	PR_INT(fp_l, o->lineorders[i].tax);
 	PR_STR(fp_l, o->lineorders[i].commit_date, DATE_LEN);
-	PR_STR(fp_l, o->lineorders[i].shipmode, O_SHIP_MODE_LEN);
+	PR_STR_LAST(fp_l, o->lineorders[i].shipmode, O_SHIP_MODE_LEN);
         PR_END(fp_l);
         }
 
@@ -318,10 +318,10 @@ pr_line(order_t *o, int mode)
         PR_STR(fp_l, o->l[i].cdate, DATE_LEN);
         PR_STR(fp_l, o->l[i].rdate, DATE_LEN);
         PR_STR(fp_l, o->l[i].shipinstruct, L_INST_LEN);
-        PR_STR(fp_l, o->l[i].shipmode, L_SMODE_LEN);
-        PR_VSTR_LAST(fp_l, o->l[i].comment, 
+        PR_STR_LAST(fp_l, o->l[i].shipmode, L_SMODE_LEN);
+        /*PR_VSTR_LAST(fp_l, o->l[i].comment, 
             (columnar)?(long)(ceil(L_CMNT_LEN *
-        V_STR_HGH)):o->l[i].clen);
+        V_STR_HGH)):o->l[i].clen); */
         PR_END(fp_l);
         }
 
@@ -394,9 +394,9 @@ static FILE *p_fp = NULL;
        (columnar)?(long)P_TYPE_LEN:part->tlen);
    PR_INT(p_fp, part->size);
    PR_STR(p_fp, part->container, P_CNTR_LEN);
-   PR_MONEY(p_fp, part->retailprice);
-   PR_VSTR_LAST(p_fp, part->comment, 
-       (columnar)?(long)(ceil(P_CMNT_LEN * V_STR_HGH)):part->clen);
+   PR_MONEY_LAST(p_fp, part->retailprice);
+   /*PR_VSTR_LAST(p_fp, part->comment, 
+       (columnar)?(long)(ceil(P_CMNT_LEN * V_STR_HGH)):part->clen);*/
    PR_END(p_fp);
 
    return(0);
@@ -424,9 +424,9 @@ pr_psupp(part_t *part, int mode)
       PR_INT(ps_fp, part->s[i].partkey);
       PR_INT(ps_fp, part->s[i].suppkey);
       PR_INT(ps_fp, part->s[i].qty);
-      PR_MONEY(ps_fp, part->s[i].scost);
-      PR_VSTR_LAST(ps_fp, part->s[i].comment, 
-       (columnar)?(long)(ceil(PS_CMNT_LEN * V_STR_HGH)):part->s[i].clen);
+      PR_MONEY_LAST(ps_fp, part->s[i].scost);
+      /*PR_VSTR_LAST(ps_fp, part->s[i].comment, 
+       (columnar)?(long)(ceil(PS_CMNT_LEN * V_STR_HGH)):part->s[i].clen); */
       PR_END(ps_fp);
       }
 
@@ -491,9 +491,9 @@ static FILE *fp = NULL;
        (columnar)?(long)(ceil(S_ADDR_LEN * V_STR_HGH)):supp->alen);
    PR_INT(fp, supp->nation_code);
    PR_STR(fp, supp->phone, PHONE_LEN);
-   PR_MONEY(fp, supp->acctbal);
-   PR_VSTR_LAST(fp, supp->comment, 
-       (columnar)?(long)(ceil(S_CMNT_LEN * V_STR_HGH)):supp->clen);
+   PR_MONEY_LAST(fp, supp->acctbal);
+   /*PR_VSTR_LAST(fp, supp->comment, 
+       (columnar)?(long)(ceil(S_CMNT_LEN * V_STR_HGH)):supp->clen);*/
    PR_END(fp);
 
    return(0);
@@ -513,9 +513,9 @@ static FILE *fp = NULL;
    PR_STRT(fp);
    PR_INT(fp, c->code);
    PR_STR(fp, c->text, NATION_LEN);
-   PR_INT(fp, c->join);
-   PR_VSTR_LAST(fp, c->comment, 
-       (columnar)?(long)(ceil(N_CMNT_LEN * V_STR_HGH)):c->clen);
+   PR_INT_LAST(fp, c->join);
+   /*PR_VSTR_LAST(fp, c->comment, 
+       (columnar)?(long)(ceil(N_CMNT_LEN * V_STR_HGH)):c->clen);*/
    PR_END(fp);
 
    return(0);
@@ -531,9 +531,9 @@ static FILE *fp = NULL;
 
    PR_STRT(fp);
    PR_INT(fp, c->code);
-   PR_STR(fp, c->text, REGION_LEN);
-   PR_VSTR_LAST(fp, c->comment, 
-       (columnar)?(long)(ceil(R_CMNT_LEN * V_STR_HGH)):c->clen);
+   PR_STR_LAST(fp, c->text, REGION_LEN);
+   /*PR_VSTR_LAST(fp, c->comment, 
+       (columnar)?(long)(ceil(R_CMNT_LEN * V_STR_HGH)):c->clen);*/
    PR_END(fp);
 
    return(0);

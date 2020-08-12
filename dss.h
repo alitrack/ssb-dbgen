@@ -488,7 +488,7 @@ extern tdef tdefs[];
 
 /******* output macros ********/
 #ifndef SEPARATOR
-#define SEPARATOR '|' /* field spearator for generated flat files */
+#define SEPARATOR ',' /* field spearator for generated flat files */
 #endif
 /* Data type flags for a single print routine */
 #define DT_STR		0
@@ -512,6 +512,14 @@ int dbg_print(int dt, FILE *tgt, void *data, int len, int eol);
 #define PR_KEY(f, str) 			dbg_print(DT_KEY, f, (void *)str, 0, -1)
 #define PR_MONEY(f, str) 		dbg_print(DT_MONEY, f, (void *)str, 0, 1)
 #define PR_CHR(f, str)	 		dbg_print(DT_CHR, f, (void *)str, 0, 1)
+
+#define PR_INT_LAST(f, str) 			dbg_print(DT_INT, f, (void *)str, 0, -1)
+#define PR_HUGE_LAST(f, str) 		dbg_print(DT_HUGE, f, (void *)str, 0, -1)
+#define PR_KEY_LAST(f, str) 			dbg_print(DT_KEY, f, (void *)str, 0, -1)
+#define PR_MONEY_LAST(f, str) 		dbg_print(DT_MONEY, f, (void *)str, 0, -1)
+#define PR_CHR_LAST(f, str)	 		dbg_print(DT_CHR, f, (void *)str, 0, -1)
+#define PR_STR_LAST(f, str, len)		dbg_print(DT_STR, f, (void *)str, len, -1)
+
 #define  PR_STRT(fp)   /* any line prep for a record goes here */
 #define  PR_END(fp)    fprintf(fp, "\n")   /* finish the record here */
 
