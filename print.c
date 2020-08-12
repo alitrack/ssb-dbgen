@@ -168,7 +168,7 @@ static FILE *fp = NULL;
    PR_STR(fp, c->nation_name, C_NATION_NAME_LEN);
    PR_STR(fp, c->region_name, C_REGION_NAME_LEN);
    PR_STR(fp, c->phone, PHONE_LEN);
-   PR_STR(fp, c->mktsegment,MAXAGG_LEN);
+   PR_STR_LAST(fp, c->mktsegment,MAXAGG_LEN);
    PR_END(fp);
 
    return(0);
@@ -370,7 +370,7 @@ pr_part(part_t *part, int mode)
     PR_VSTR(p_fp, part->type,
 	    (columnar)?(long)P_TYPE_LEN:part->tlen);
     PR_INT(p_fp, part->size);
-    PR_STR(p_fp, part->container, P_CNTR_LEN);
+    PR_STR_LAST(p_fp, part->container, P_CNTR_LEN);
     PR_END(p_fp);
     return(0);
 }
@@ -470,7 +470,7 @@ pr_supp(supplier_t *supp, int mode)
     PR_STR(fp, supp->city, CITY_FIX);
     PR_STR(fp, supp->nation_name, C_NATION_NAME_LEN);
     PR_STR(fp, supp->region_name, C_REGION_NAME_LEN);
-    PR_STR(fp, supp->phone, PHONE_LEN);
+    PR_STR_LAST(fp, supp->phone, PHONE_LEN);
     PR_END(fp);
 
     return(0);
