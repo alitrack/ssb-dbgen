@@ -673,7 +673,7 @@ int pr_date(date_t *d, int mode){
     PR_STR(d_fp,d->lastdayinweekfl,2);
     PR_STR(d_fp,d->lastdayinmonthfl,2);
     PR_STR(d_fp,d->holidayfl,2);
-    PR_STR(d_fp,d->weekdayfl,2);
+    PR_STR_LAST(d_fp,d->weekdayfl,2);
 
     PR_END(d_fp);
     return(0);
